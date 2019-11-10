@@ -59,10 +59,10 @@ environment:
      _ARCH: x86
      _GENERATOR: "NMake Makefiles"
      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2010
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS_2010
+     _ARCH: x64
+     _GENERATOR: "NMake Makefiles"
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
    - _CC: VS_2008
      _ARCH: x86
      _GENERATOR: "NMake Makefiles"
