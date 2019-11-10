@@ -12,58 +12,58 @@ skip_non_tags: true  # Build only tags
 #
 environment:
   matrix:
-  - _CC: VS_2019
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-  - _CC: VS_2019
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-  - _CC: VS_2017
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-  - _CC: VS_2017
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-  - _CC: VS_2015
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-  - _CC: VS_2015
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-  - _CC: VS_2013
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2013
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2012
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2012
-    _ARCH: x64
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2019
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+#  - _CC: VS_2019
+#    _ARCH: x64
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+#  - _CC: VS_2017
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+#  - _CC: VS_2017
+#    _ARCH: x64
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+#  - _CC: VS_2015
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+#  - _CC: VS_2015
+#    _ARCH: x64
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+#  - _CC: VS_2013
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2013
+#    _ARCH: x64
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2012
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2012
+#    _ARCH: x64
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2010
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - _CC: VS_2010
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2010
     _ARCH: x64
     _GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-  - _CC: VS_2008
-    _ARCH: x86
-    _GENERATOR: "NMake Makefiles"
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - _CC: VS_2008
+#    _ARCH: x86
+#    _GENERATOR: "NMake Makefiles"
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - _CC: VS_2008
     _ARCH: x64
     _GENERATOR: "NMake Makefiles"
@@ -91,8 +91,9 @@ init:
   - IF "%_CC%" == "VS_2012" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
   - IF "%_CC%" == "VS_2012" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
   - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\vcvars32.bat"
-  - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\vcvarsx86_amd64.bat"
+  - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86
+  - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" type "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_amd64
   - ECHO %PATH%
 
