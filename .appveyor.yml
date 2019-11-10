@@ -84,8 +84,8 @@ init:
   - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
   - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "%VS120COMNTOOLS%\vsvars32.bat"
-  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "%VS120COMNTOOLS%\vsvars64.bat"
+  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\vsvars32.bat"
+  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\vsvars64.bat"
   - IF "%ENV_CC%" == "VS_2012" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
   - IF "%ENV_CC%" == "VS_2012" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
   - IF "%ENV_CC%" == "VS_2010" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
