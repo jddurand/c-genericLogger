@@ -1,5 +1,6 @@
 shallow_clone: true  # For GitHub abd BitBucket
 clone_depth: 100     # For other git providers
+skip_non_tags: true  # Build only tags
 
 # -------------------------------------------------------------------------------------------------------------------
 # The important thing is to know what AppVeyor images hosts what. As of 11-oct-2019:
