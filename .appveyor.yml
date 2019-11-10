@@ -92,11 +92,13 @@ init:
   - IF "%_CC%" == "VS_2012" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
   - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\vcvars32.bat"
   - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" cinst vcredist2010
-  - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" dir /s "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC"
   - IF "%_CC%" == "VS_2010" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /release
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat"
   - ECHO %PATH%
+
+before_build:
+  - ps: Get-ChildItem c:\windows -include *.dll -recurse | foreach-object { "{0}" -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_) }
 
 build_script:
   - cd C:\projects\c-marpaESLIF
