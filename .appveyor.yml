@@ -116,7 +116,7 @@ on_failure:
   - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log }
 
 artifacts:
-  - path: *.exe
+  - path: "*.exe"
     name: myartifact
 
 deploy:
