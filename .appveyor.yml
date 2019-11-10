@@ -124,5 +124,4 @@ deploy:
   prerelease: false
   tag: $(APPVEYOR_REPO_TAG_NAME)
   on:
-    branch: master
     APPVEYOR_REPO_TAG: true
