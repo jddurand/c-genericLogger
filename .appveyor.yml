@@ -1,48 +1,71 @@
 shallow_clone: true
 clone_depth: 1
 
+#
+# The important thing is to know what AppVeyor images hosts what. As of 11-oct-2019:
+#
+#  Image              "Visual Studio 2013"     "Visual Studio 2015"         "Visual Studio 2017" "Visual Studio 2019"
+#  CMake               3.12.2                   3.15.5                       3.15.5               3.15.5
+#  Visual C++          2008/2010/2012/2013      2008/2010/2012/2013/2015     2015/2017            2019
+#
 environment:
   matrix:
   - ENV_CC: VS_2019
     ENV_ARCH: x86
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   - ENV_CC: VS_2019
     ENV_ARCH: x64
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
   - ENV_CC: VS_2017
     ENV_ARCH: x86
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   - ENV_CC: VS_2017
     ENV_ARCH: x64
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   - ENV_CC: VS_2015
     ENV_ARCH: x86
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
   - ENV_CC: VS_2015
     ENV_ARCH: x64
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
   - ENV_CC: VS_2013
     ENV_ARCH: x86
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - ENV_CC: VS_2013
     ENV_ARCH: x64
+    ENV_GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - ENV_CC: VS_2012
     ENV_ARCH: x86
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2012
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - ENV_CC: VS_2012
     ENV_ARCH: x64
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2012
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - ENV_CC: VS_2010
     ENV_ARCH: x86
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2010
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
   - ENV_CC: VS_2010
     ENV_ARCH: x64
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2010
-  - ENV_CC: MINGW_492
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+  - ENV_CC: VS_2008
     ENV_ARCH: x86
-  - ENV_CC: MINGW_W64
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+  - ENV_CC: VS_2008
     ENV_ARCH: x64
+    ENV_GENERATOR: "NMake Makefiles"
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
 
 build:
   verbosity: detailed
@@ -54,26 +77,26 @@ clone_folder: C:\projects\c-marpaESLIF
 #   fast_finish: true # Immediately finish build once one of the jobs fails
 
 init:
-  - IF "%ENV_CC%" == "VS_2019"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
-  - IF "%ENV_CC%" == "VS_2019"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
-  - IF "%ENV_CC%" == "VS_2017"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-  - IF "%ENV_CC%" == "VS_2017"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-  - IF "%ENV_CC%" == "VS_2015"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
-  - IF "%ENV_CC%" == "VS_2015"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - IF "%ENV_CC%" == "VS_2015"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-  - IF "%ENV_CC%" == "VS_2013"   IF "%ENV_ARCH%" == "x86" call "%VS120COMNTOOLS%\vsvars32.bat"
-  - IF "%ENV_CC%" == "VS_2013"   IF "%ENV_ARCH%" == "x64" call "%VS120COMNTOOLS%\vsvars64.bat"
-  - IF "%ENV_CC%" == "VS_2012"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
-  - IF "%ENV_CC%" == "VS_2012"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
-  - IF "%ENV_CC%" == "VS_2010"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
-  - IF "%ENV_CC%" == "VS_2010"   IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
-  - IF "%ENV_CC%" == "MINGW_492" IF "%ENV_ARCH%" == "x86" set PATH=C:\Qt\Tools\mingw492_32\bin;%PATH%
-  - IF "%ENV_CC%" == "MINGW_W64" IF "%ENV_ARCH%" == "x64" set PATH=C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
+  - IF "%ENV_CC%" == "VS_2019" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - IF "%ENV_CC%" == "VS_2019" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - IF "%ENV_CC%" == "VS_2017" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - IF "%ENV_CC%" == "VS_2017" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+  - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - IF "%ENV_CC%" == "VS_2015" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "%VS120COMNTOOLS%\vsvars32.bat"
+  - IF "%ENV_CC%" == "VS_2013" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "%VS120COMNTOOLS%\vsvars64.bat"
+  - IF "%ENV_CC%" == "VS_2012" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
+  - IF "%ENV_CC%" == "VS_2012" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%ENV_CC%" == "VS_2010" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+  - IF "%ENV_CC%" == "VS_2010" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%ENV_CC%" == "VS_2008" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x86" call "C:\Program Files\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86
+  - IF "%ENV_CC%" == "VS_2008" IF "%ENV_GENERATOR%"=="NMake Makefiles" IF "%ENV_ARCH%" == "x64" call "C:\Program Files\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_amd64
   - ECHO %PATH%
 
 build_script:
   - cd C:\projects\c-marpaESLIF
-  - cmake -Wno-dev -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .
+  - cmake -Wno-dev -G "%ENV_GENERATOR%" -DCMAKE_BUILD_TYPE=Release .
   - nmake
 
 test_script:
