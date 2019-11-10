@@ -76,7 +76,7 @@ build:
   verbosity: detailed
   parallel: true
 
-clone_folder: C:\projects\c-marpaESLIF
+clone_folder: C:\projects\%APPVEYOR_PROJECT_NAME%
 
 # matrix:
 #   fast_finish: true # Immediately finish build once one of the jobs fails
@@ -100,30 +100,30 @@ init:
   - ECHO %PATH%
 
 build_script:
-  - cd C:\projects\c-marpaESLIF
+  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
   - cmake -Wno-dev -G "%_GENERATOR%" -DCMAKE_BUILD_TYPE=Release -DALL_IN_ONE=TRUE .
   - nmake
 
 test_script:
-  - cd C:\projects\c-marpaESLIF
+  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
   - nmake check
   - nmake install
   - nmake pack
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
 
 on_failure:
-  - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log }
-  - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log }
+  - ps: if(Test-Path C:\projects\%APPVEYOR_PROJECT_NAME%\CMakeFiles\CMakeOutput.log) { cat C:\projects\%APPVEYOR_PROJECT_NAME%\CMakeFiles\CMakeOutput.log }
+  - ps: if(Test-Path C:\projects\%APPVEYOR_PROJECT_NAME%\CMakeFiles\CMakeError.log) { cat C:\projects\%APPVEYOR_PROJECT_NAME%\CMakeFiles\CMakeError.log }
 
 artifacts:
   - path: "*.exe"
-    name: myartifact
+    name: MyArtifact
 
 deploy:
   provider: GitHub
   auth_token:
     secure: "fEAB3xYZ5qzMzndC986dN2rtp1tEAXP76gpp7qWpzzwVuWDDuWcLUH7fPNzDyVeb"
-  artifacts: myartifact
+  artifacts: MyArtifact
   draft: false
   prerelease: false
   tag: $(APPVEYOR_REPO_TAG_NAME)
