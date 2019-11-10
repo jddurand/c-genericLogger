@@ -8,6 +8,8 @@ skip_non_tags: true  # Build only tags
 #  Image              "Visual Studio 2013"     "Visual Studio 2015"         "Visual Studio 2017" "Visual Studio 2019"
 #  CMake               3.12.2                   3.15.5                       3.15.5               3.15.5
 #  Visual C++          2008/2010/2012/2013      2008/2010/2012/2013/2015     2015/2017            2019
+#
+# Note that 2010 x64 will not have redistributables because they are absent from AppVeyor image.
 # -------------------------------------------------------------------------------------------------------------------
 #
 environment:
@@ -95,9 +97,6 @@ init:
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86
   - IF "%_CC%" == "VS_2008" IF "%_GENERATOR%"=="NMake Makefiles" IF "%_ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat"
   - ECHO %PATH%
-
-before_build:
-  - ps: Get-ChildItem c:\windows -include *.dll -recurse | foreach-object { "{0}" -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_) }
 
 build_script:
   - cd C:\projects\c-marpaESLIF
