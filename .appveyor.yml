@@ -13,6 +13,8 @@ skip_non_tags: true  # Build only tags
 # -------------------------------------------------------------------------------------------------------------------
 #
 environment:
+  upload_token:
+    secure: 
   matrix:
 #  - _CC: VS_2019
 #    _ARCH: x86
@@ -108,10 +110,22 @@ test_script:
   - nmake check
   - nmake install
   - nmake pack
-  - dir *.exe
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
-  - dir *.exe
 
 on_failure:
   - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log }
   - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log }
+
+artifacts:
+  - path: *.exe
+    name: Releases
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: "fEAB3xYZ5qzMzndC986dN2rtp1tEAXP76gpp7qWpzzwVuWDDuWcLUH7fPNzDyVeb"
+  artifact: /.*\.exe/
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
