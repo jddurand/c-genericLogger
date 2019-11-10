@@ -1,37 +1,83 @@
-version: 1.0.{build}
-
-image:
-  - Visual Studio 2008
-  - Visual Studio 2010
-  - Visual Studio 2012
-  - Visual Studio 2013
-  - Visual Studio 2015
-  - Visual Studio 2017
-  - Visual Studio 2019
-
-platform:
-  - x86
-  - x64
-  - ARM
-
-configuration:
-  - Release
+shallow_clone: true
+clone_depth: 1
 
 environment:
-  access_token:
-    secure: A/4rfTb0Vd7FoAjKEBq/1u3QjwGegZQKXRm0RJqSQGtZaI28wO/k8AcBq3iWbvaA
+  matrix:
+  - CC: VS_2019
+    ARCH: x86
+    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+#  - CC: VS_2017
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+#  - CC: VS_2017
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+#  - CC: VS_2017
+#    ARCH: x64
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+#  - CC: VS_2015
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+#  - CC: VS_2015
+#    ARCH: x64
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+#  - CC: VS_2013
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - CC: VS_2013
+#    ARCH: x64
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+#  - CC: VS_2012
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2012
+#  - CC: VS_2012
+#    ARCH: x64
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2012
+#  - CC: VS_2010
+#    ARCH: x86
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2010
+#  - CC: VS_2010
+#    ARCH: x64
+#    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2010
+#  - CC: MINGW_492
+#    ARCH: x86
+#  - CC: MINGW_W64
+#    ARCH: x64
 
-clone_folder: C:\projects\c-genericlogger
-clone_depth: 1 # Not needing of all the history - just the HEAD
-shallow_clone: false
+build:
+  verbosity: detailed
+  parallel: true
+
+clone_folder: C:\projects\c-marpaESLIF
+
+matrix:
+  fast_finish: true # Immediately finish build once one of the jobs fails
+
+init:
+  - IF "%CC%" == "VS_2019"   IF "%ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - IF "%CC%" == "VS_2019"   IF "%ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - IF "%CC%" == "VS_2017"   IF "%ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - IF "%CC%" == "VS_2017"   IF "%ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - IF "%CC%" == "VS_2015"   IF "%ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+  - IF "%CC%" == "VS_2015"   IF "%ARCH%" == "x64" call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - IF "%CC%" == "VS_2015"   IF "%ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%CC%" == "VS_2013"   IF "%ARCH%" == "x86" call "%VS120COMNTOOLS%\vsvars32.bat"
+  - IF "%CC%" == "VS_2013"   IF "%ARCH%" == "x64" call "%VS120COMNTOOLS%\vsvars64.bat"
+  - IF "%CC%" == "VS_2012"   IF "%ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86
+  - IF "%CC%" == "VS_2012"   IF "%ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%CC%" == "VS_2010"   IF "%ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+  - IF "%CC%" == "VS_2010"   IF "%ARCH%" == "x64" call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
+  - IF "%CC%" == "MINGW_492" IF "%ARCH%" == "x86" set PATH=C:\Qt\Tools\mingw492_32\bin;%PATH%
+  - IF "%CC%" == "MINGW_W64" IF "%ARCH%" == "x64" set PATH=C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
+  - ECHO %PATH%
 
 build_script:
-  - cd C:\projects\c-genericlogger
-  - cmake -G "NMake Makefiles" .
+  - cd C:\projects\c-marpaESLIF
+  - cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .
   - nmake
 
 test_script:
-  - cd C:\projects\c-genericlogger
+  - cd C:\projects\c-marpaESLIF
   - nmake check
   - nmake install
   - nmake pack
