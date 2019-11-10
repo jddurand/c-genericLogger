@@ -12,7 +12,7 @@ skip_non_tags: true  # Build only tags
 #
 environment:
   matrix:
-  - ENV_CC: VS_2019
+  - _CC: VS_2019
     _ARCH: x86
     _GENERATOR: "NMake Makefiles"
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
