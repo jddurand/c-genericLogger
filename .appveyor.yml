@@ -116,10 +116,6 @@ on_failure:
   - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log }
   - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log }
 
-artifacts:
-  - path: *.exe
-    name: Releases
-
 deploy:
   provider: GitHub
   auth_token:
@@ -129,4 +125,5 @@ deploy:
   prerelease: false
   tag: $(APPVEYOR_REPO_TAG_NAME)
   on:
-    appveyor_repo_tag: true
+    branch: master
+    APPVEYOR_REPO_TAG: true
