@@ -73,7 +73,7 @@ init:
 
 build_script:
   - cd C:\projects\c-marpaESLIF
-  - cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .
+  - cmake -Wno-dev -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .
   - nmake
 
 test_script:
