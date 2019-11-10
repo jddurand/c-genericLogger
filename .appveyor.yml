@@ -50,8 +50,8 @@ build:
 
 clone_folder: C:\projects\c-marpaESLIF
 
-matrix:
-  fast_finish: true # Immediately finish build once one of the jobs fails
+# matrix:
+#   fast_finish: true # Immediately finish build once one of the jobs fails
 
 init:
   - IF "%ENV_CC%" == "VS_2019"   IF "%ENV_ARCH%" == "x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
@@ -81,3 +81,7 @@ test_script:
   - nmake check
   - nmake install
   - nmake pack
+
+on_failure:
+  - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeOutput.log }
+  - ps: if(Test-Path C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log) { cat C:\projects\c-marpaESLIF\CMakeFiles\CMakeError.log }
