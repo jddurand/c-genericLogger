@@ -103,17 +103,17 @@ extern "C" {
   /*************************
    Exported symbols
   *************************/
-  genericLogger_EXPORT const char             *genericLogger_versions();
-  genericLogger_EXPORT genericLoggerCallback_t genericLogger_defaultLogCallbackp(void);
-  genericLogger_EXPORT void                   *genericLogger_userDatavp_setp(genericLogger_t *genericLoggerp, void *userDatavp);
-  genericLogger_EXPORT void                   *genericLogger_userDatavp_getp(genericLogger_t *genericLoggerp);
-  genericLogger_EXPORT genericLoggerLevel_t    genericLogger_logLevel_seti(genericLogger_t *genericLoggerp, genericLoggerLevel_t logLeveli);
-  genericLogger_EXPORT genericLoggerLevel_t    genericLogger_logLevel_geti(genericLogger_t *genericLoggerp);
-  genericLogger_EXPORT genericLogger_t        *genericLogger_newp(genericLoggerCallback_t logCallbackp, void *userDatavp, genericLoggerLevel_t genericLoggerLeveli);
-  genericLogger_EXPORT genericLogger_t        *genericLogger_clonep(genericLogger_t *genericLoggerp);
-  genericLogger_EXPORT void                    genericLogger_freev(genericLogger_t **genericLoggerpp);
-  genericLogger_EXPORT void                    genericLogger_logv(genericLogger_t *genericLoggerp, genericLoggerLevel_t genericLoggerLeveli, const char *fmts, ...);
-  genericLogger_EXPORT void                    genericLogger_logapv(genericLogger_t *genericLoggerp, genericLoggerLevel_t genericLoggerLeveli, const char *fmts, va_list ap);
+  genericLogger_EXPORT const char              genericLogger_FASTCALL *genericLogger_versions();
+  genericLogger_EXPORT genericLoggerCallback_t genericLogger_FASTCALL  genericLogger_defaultLogCallbackp(void);
+  genericLogger_EXPORT void                    genericLogger_FASTCALL *genericLogger_userDatavp_setp(genericLogger_t *genericLoggerp, void *userDatavp);
+  genericLogger_EXPORT void                    genericLogger_FASTCALL *genericLogger_userDatavp_getp(genericLogger_t *genericLoggerp);
+  genericLogger_EXPORT genericLoggerLevel_t    genericLogger_FASTCALL  genericLogger_logLevel_seti(genericLogger_t *genericLoggerp, genericLoggerLevel_t logLeveli);
+  genericLogger_EXPORT genericLoggerLevel_t    genericLogger_FASTCALL  genericLogger_logLevel_geti(genericLogger_t *genericLoggerp);
+  genericLogger_EXPORT genericLogger_t         genericLogger_FASTCALL *genericLogger_newp(genericLoggerCallback_t logCallbackp, void *userDatavp, genericLoggerLevel_t genericLoggerLeveli);
+  genericLogger_EXPORT genericLogger_t         genericLogger_FASTCALL *genericLogger_clonep(genericLogger_t *genericLoggerp);
+  genericLogger_EXPORT void                    genericLogger_FASTCALL  genericLogger_freev(genericLogger_t **genericLoggerpp);
+  genericLogger_EXPORT void                    genericLogger_FASTCALL  genericLogger_logv(genericLogger_t *genericLoggerp, genericLoggerLevel_t genericLoggerLeveli, const char *fmts, ...);
+  genericLogger_EXPORT void                    genericLogger_FASTCALL  genericLogger_logapv(genericLogger_t *genericLoggerp, genericLoggerLevel_t genericLoggerLeveli, const char *fmts, va_list ap);
 #ifdef _cpluscplus
 }
 #endif
