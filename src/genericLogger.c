@@ -39,7 +39,7 @@ static inline char *_genericLogger_messageBuilder_aps(genericLogger_t *genericLo
 /**********************/
 /* genericLogger_newp */
 /**********************/
-genericLogger_t *genericLogger_FASTCALL genericLogger_newp(genericLoggerCallback_t logCallbackp, void *userDatavp, genericLoggerLevel_t genericLoggerLeveli) {
+genericLogger_t genericLogger_FASTCALL *genericLogger_newp(genericLoggerCallback_t logCallbackp, void *userDatavp, genericLoggerLevel_t genericLoggerLeveli) {
   genericLogger_t *genericLoggerp = malloc(sizeof(genericLogger_t));
 
   if (GENERICLOGGER_UNLIKELY(genericLoggerp == NULL)) {
@@ -58,7 +58,7 @@ genericLogger_t *genericLogger_FASTCALL genericLogger_newp(genericLoggerCallback
 /************************/
 /* genericLogger_clonep */
 /************************/
-genericLogger_t *genericLogger_FASTCALL genericLogger_clonep(genericLogger_t *genericLoggerp) {
+genericLogger_t genericLogger_FASTCALL *genericLogger_clonep(genericLogger_t *genericLoggerp) {
   if (GENERICLOGGER_UNLIKELY(genericLoggerp == NULL)) {
     return NULL;
   }
@@ -69,7 +69,7 @@ genericLogger_t *genericLogger_FASTCALL genericLogger_clonep(genericLogger_t *ge
 /*******************************/
 /* genericLogger_logLevel_seti */
 /*******************************/
-void *genericLogger_FASTCALL genericLogger_userDatavp_setp(genericLogger_t *genericLoggerp, void *userDatavp) {
+void genericLogger_FASTCALL *genericLogger_userDatavp_setp(genericLogger_t *genericLoggerp, void *userDatavp) {
   void *previousUserDatavp = genericLoggerp->userDatavp;
   genericLoggerp->userDatavp = userDatavp;
   return previousUserDatavp;
@@ -78,7 +78,7 @@ void *genericLogger_FASTCALL genericLogger_userDatavp_setp(genericLogger_t *gene
 /*********************************/
 /* genericLogger_userDatavp_getp */
 /*********************************/
-void *genericLogger_FASTCALL genericLogger_userDatavp_getp(genericLogger_t *genericLoggerp)
+void genericLogger_FASTCALL *genericLogger_userDatavp_getp(genericLogger_t *genericLoggerp)
 {
   return genericLoggerp->userDatavp;
 }
@@ -109,7 +109,7 @@ genericLoggerCallback_t genericLogger_FASTCALL genericLogger_defaultLogCallbackp
 /*************************************/
 /* genericLogger_versions            */
 /*************************************/
-const char *genericLogger_FASTCALL genericLogger_versions() {
+const char genericLogger_FASTCALL *genericLogger_versions() {
   return GENERICLOGGER_VERSION;
 }
 
