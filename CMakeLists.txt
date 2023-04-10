@@ -24,6 +24,12 @@ MYPACKAGETESTEXECUTABLE(genericLoggerTester test/genericLoggerTester.c)
 #########
 MYPACKAGECHECK(genericLoggerTester)
 
+##########
+# Export #
+##########
+MYPACKAGECMAKEEXPORT()
+MYPACKAGEPKGCONFIGEXPORT()
+
 #############
 # Packaging #
 #############
