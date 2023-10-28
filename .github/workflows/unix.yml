@@ -33,7 +33,7 @@ jobs:
       run: make check VERBOSE=1
 
     - name: Install
-      run: make install VERBOSE=1
+      run: sudo make install VERBOSE=1
 
     - name: Package
       run: make package VERBOSE=1
