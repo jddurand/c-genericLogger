@@ -69,6 +69,8 @@ install:
   - cmd: if not exist "C:\strawberry" cinst strawberryperl
   - cmd: set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - perl -v
+  - cpan App::cpanminus
+  - cpan --notest Config::AutoConf::INI Try::Tiny
 #
 # Make sure we always have (a decent) CMake
 #
@@ -110,6 +112,7 @@ init:
 build_script:
   - cmake -S . -B build_folder -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "NMake Makefiles"
   - cmake --build build_folder
+  - perl CMakeObjects.PL
 
 after_build:
   - cmake --install build_folder --prefix install_folder
