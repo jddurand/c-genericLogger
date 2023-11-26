@@ -33,8 +33,8 @@ print "Generating config for genericLogger version $version\n";
 # ------------------------
 # Write configuration file
 # ------------------------
-my $config_h_in = File::Spec->catfile('include', 'genericLogger_config.h.in');
-my $config_h    = File::Spec->catfile('output', 'include', 'genericLogger', 'config.h');
+my $config_h_in = File::Spec->catfile('include', 'genericLogger', 'internal', 'config.h.in');
+my $config_h    = File::Spec->catfile('output', 'include', 'genericLogger', 'internal', 'config.h');
 make_path(dirname($config_h));
 my $ac = Config::AutoConf::INI->new(logfile => 'config.log');
 $ac->msg_checking("for __builtin_expect()");
