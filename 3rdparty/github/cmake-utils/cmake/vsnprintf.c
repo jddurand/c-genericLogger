@@ -1,7 +1,10 @@
-#if HAVE_STDIO_H
+#cmakedefine HAVE_STDIO_H
+#cmakedefine HAVE_STDARG_H
+
+#ifdef HAVE_STDIO_H
 #include <stdio.h>
 #endif
-#if HAVE_STDARG_H
+#ifdef HAVE_STDARG_H
 #include <stdarg.h>
 #endif
 

@@ -1,41 +1,26 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 3.26.0 FATAL_ERROR)
-PROJECT(genericLogger VERSION 1.0.52 LANGUAGES C)
-IF (NOT MYPACKAGEBOOTSTRAP_DONE)
-  INCLUDE ("3rdparty/github/cmake-utils/cmake/MyPackageBootstrap.cmake")
-ENDIF ()
-MYPACKAGESTART ()
-
-######################
-# Library definition #
-######################
-FILE (GLOB lib_src src/*.c)
-MYPACKAGELIBRARY(
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/genericLogger_config.h.in
-  ${INCLUDE_OUTPUT_PATH}/genericLogger/config.h
-  ${lib_src})
-
-###############
-# Executables #
-###############
-MYPACKAGETESTEXECUTABLE(genericLoggerTester test/genericLoggerTester.c)
-
-#########
-# Tests #
-#########
-MYPACKAGECHECK(genericLoggerTester)
-
-##########
-# Export #
-##########
-MYPACKAGECMAKEEXPORT()
-MYPACKAGEPKGCONFIGEXPORT()
-
-#############
-# Packaging #
-#############
-MYPACKAGEPACK("" "Generic Logger")
-
-#########
-# Setup #
-#########
-MYPACKAGEPRINTSETUP()
+cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
+project(genericLogger VERSION 1.0.52 LANGUAGES C)
+#
+# Get library helper
+#
+include(FetchContent)
+FetchContent_Declare(cmake-helpers
+  GIT_REPOSITORY https://github.com/jddurand/cmake-helpers.git
+  GIT_REMOTE_UPDATE_STRATEGY CHECKOUT
+  GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(cmake-helpers)
+#
+# Create library
+#
+cmake_helpers_library(genericLogger
+  CONFIG_ARGS include/genericLogger/internal/config.h.in include/genericLogger/internal/config.h
+)
+#
+# Create executables
+#
+include(CTest)
+cmake_helpers_exe(genericLoggerTester TEST TRUE SOURCES test/genericLoggerTester.c)
+#
+# Package
+#
+cmake_helpers_package()
