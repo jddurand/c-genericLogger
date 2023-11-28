@@ -7,7 +7,7 @@ include(FetchContent)
 FetchContent_Declare(cmake-helpers
   GIT_REPOSITORY https://github.com/jddurand/cmake-helpers.git
   GIT_SHALLOW TRUE
-  GIT_REMOTE_UPDATE_STRATEGY CHECKOUT # We always want the latest version
+  # GIT_REMOTE_UPDATE_STRATEGY CHECKOUT # We always want the latest version
 )
 FetchContent_MakeAvailable(cmake-helpers)
 #

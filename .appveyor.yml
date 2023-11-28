@@ -70,7 +70,7 @@ install:
   - cmd: set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - perl -v
   - cpan App::cpanminus
-  - cpanm --notest Config::AutoConf::INI Try::Tiny
+  - cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny
 #
 # Make sure we always have (a decent) CMake
 #
