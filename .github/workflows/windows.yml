@@ -43,7 +43,9 @@ jobs:
       run: cmake -S . -B ..\build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
 
     - name: Build
-      run: cmake --build ..\build_folder
+      run: |
+        cmake --build ..\build_folder
+        perl CMakeObjects.PL
 
     - name: Test
       run: ctest --test-dir ..\build_folder
