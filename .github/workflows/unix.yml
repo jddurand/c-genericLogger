@@ -26,37 +26,20 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set PAUSE identity
-      run: |
-        echo user JDDPAUSE > ~/.pause
-        echo password WellWellComeOn >> ~/.pause
-
-    - name: Set up perl
-      uses: shogo82148/actions-setup-perl@v1
-
-    - name: Perl pre-requesites
-      run: |
-        cpan App::cpanminus
-        cpanm --notest Dist::Zilla
-        cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny
-
-    - name: CMake Configure
+    - name: Configure
       run: cmake -S . -B ../build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "Unix Makefiles"
 
-    - name: CMake build
+    - name: Build
       run: cmake --build ../build_folder
 
-    - name: CMake test
+    - name: Test
       run: ctest --test-dir ../build_folder
 
-    - name: CMake install
-      run: cmake --install ../build_folder --prefix ../install_folder
+    - name: Install
+      run: cmake --install ../build_folder --prefix ${{github.workspace}}/../install_folder
 
-    - name: CMake package
+    - name: Package
       run: cmake --build ../build_folder --target package
-
-    - name: Perl build
-      run: perl CMakeObjects.PL
 
     - name: Look for dumps
       run: |

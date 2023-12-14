@@ -17,42 +17,25 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        include:
-          - os: windows-latest
+        cmake_generator: ["Visual Studio 17 2022"]
+        cmake_generator_platform: ["Win32","x64"]
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
-    - uses: ilammy/msvc-dev-cmd@v1
+    - uses: microsoft/setup-msbuild@v1.3.1
 
-    - name: Set PAUSE identity
-      run: |
-        echo user JDDPAUSE > ~/.pause
-        echo password WellWellComeOn >> ~/.pause
+    - name: Configure
+      run: cmake -S . -B ../build_folder -G "${{matrix.cmake_generator}}" -A "${{matrix.cmake_generator_platform}}"
 
-    - name: Set up perl
-      uses: shogo82148/actions-setup-perl@v1
+    - name: Build
+      run: cmake --build ../build_folder --config ${{env.BUILD_TYPE}}
 
-    - name: Perl pre-requesites
-      run: |
-        cpan App::cpanminus
-        cpanm --notest Dist::Zilla
-        cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny
+    - name: Test
+      run: ctest --test-dir ../build_folder --build-config ${{env.BUILD_TYPE}}
 
-    - name: CMake Configure
-      run: cmake -S . -B ..\build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
+    - name: Install
+      run: cmake --install ../build_folder --prefix ${{github.workspace}}/../install_folder --config ${{env.BUILD_TYPE}}
 
-    - name: CMake build
-      run: cmake --build ..\build_folder
-
-    - name: CMake test
-      run: ctest --test-dir ..\build_folder
-
-    - name: CMake install
-      run: cmake --install ..\build_folder --prefix ..\install_folder
-
-    - name: CMake package
-      run: cmake --build ..\build_folder --target package
-
-    - name: Perl build
-      run: perl CMakeObjects.PL
+    - name: Package
+      run: cmake --build ../build_folder --target package --config ${{env.BUILD_TYPE}}
