@@ -108,9 +108,9 @@ init:
   - ECHO %PATH%
 
 build_script:
-  - perl CMakeObjects.PL
   - cmake -S . -B build_folder -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "NMake Makefiles"
   - cmake --build build_folder
+  - perl CMakeObjects.PL
 
 after_build:
   - cmake --install build_folder --config RelWithDebInfo --prefix %cd%/install_folder
