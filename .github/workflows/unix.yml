@@ -29,6 +29,9 @@ jobs:
     - name: Configure
       run: cmake -S . -B ../build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "Unix Makefiles"
 
+    - name: Perl build
+      run: perl CMakeObjects.PL
+
     - name: Build
       run: cmake --build ../build_folder
 
