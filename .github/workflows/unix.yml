@@ -26,6 +26,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Set PAUSE identity
+      run: |
+        echo user JDDPAUSE > ~/.pause
+        echo password WellWellComeOn >> ~/.pause
+
+    - name: Set up perl
+      uses: shogo82148/actions-setup-perl@v1
+
+    - name: Install perl dependencies
+      run: |
+        perl -MCPAN -e shell install App::cpanminus
+        cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny
+
     - name: Configure
       run: cmake -S . -B ../build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "Unix Makefiles"
 
