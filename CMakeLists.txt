@@ -22,7 +22,7 @@
 # cmake --build c-genericLogger-build --target package
 #
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
-project(genericLogger VERSION 1.0.54 LANGUAGES C)
+project(genericLogger VERSION 1.0.55 LANGUAGES C)
 #
 # Get library helper
 #
