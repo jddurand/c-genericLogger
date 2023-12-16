@@ -69,8 +69,8 @@ install:
   - cmd: if not exist "C:\strawberry" cinst strawberryperl
   - cmd: set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - perl -v
-  - perl -MCPAN -e shell install App::cpanminus
-  - cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny
+  - cpan App::cpanminus < NUL
+  - cpanm --notest Config::AutoConf::INI ExtUtils::CBuilder Try::Tiny < NUL
 #
 # Make sure we always have (a decent) CMake
 #
